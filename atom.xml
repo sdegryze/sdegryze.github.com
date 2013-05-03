@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-03T09:33:55+02:00</updated>
+  <updated>2013-05-03T09:42:48+02:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -39,7 +39,7 @@
   <li>Hyperparameter optimization</li>
 </ul>
 
-<p>Testing ldryman’s LaTEX solution:</p>
+<p>Testing <a href="http://www.idryman.org/blog/2012/03/10/writing-math-equations-on-octopress/">ldryman’s LaTEX solution</a>:</p>
 
 <script type="math/tex; mode=display">% &lt;![CDATA[
 
