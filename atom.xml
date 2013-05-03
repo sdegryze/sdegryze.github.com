@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-03T09:21:16+02:00</updated>
+  <updated>2013-05-03T09:22:46+02:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -18,7 +18,7 @@
     <link href="http://sdegryze.github.io/blog/2013/05/03/my-learning-learning-wishlist/"/>
     <updated>2013-05-03T09:19:00+02:00</updated>
     <id>http://sdegryze.github.io/blog/2013/05/03/my-learning-learning-wishlist</id>
-    <content type="html"><![CDATA[<h1>Implementation of simple algorithms in Python and R</h1>
+    <content type="html"><![CDATA[<h2>Implementation of simple algorithms in Python and R</h2>
 
 <ul>
 <li>K-means</li>
@@ -30,7 +30,7 @@
 </ul>
 
 
-<h1>Essential concepts</h1>
+<h2>Essential concepts</h2>
 
 <ul>
 <li>Probability</li>
