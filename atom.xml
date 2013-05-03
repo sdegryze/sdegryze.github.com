@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-03T09:17:14+02:00</updated>
+  <updated>2013-05-03T09:21:16+02:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -12,5 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My learning learning wishlist]]></title>
+    <link href="http://sdegryze.github.io/blog/2013/05/03/my-learning-learning-wishlist/"/>
+    <updated>2013-05-03T09:19:00+02:00</updated>
+    <id>http://sdegryze.github.io/blog/2013/05/03/my-learning-learning-wishlist</id>
+    <content type="html"><![CDATA[<h1>Implementation of simple algorithms in Python and R</h1>
+
+<ul>
+<li>K-means</li>
+<li>Random forests</li>
+<li>kNN</li>
+<li>Gradient descent</li>
+<li>Neural networks</li>
+<li>Collaborative filtering</li>
+</ul>
+
+
+<h1>Essential concepts</h1>
+
+<ul>
+<li>Probability</li>
+<li>Combinatorics</li>
+<li>Algorithms</li>
+<li>Learning theory</li>
+<li>Hyperparameter optimization</li>
+</ul>
+
+]]></content>
+  </entry>
   
 </feed>
