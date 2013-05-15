@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-03T14:45:34+02:00</updated>
+  <updated>2013-05-04T12:28:25+02:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -137,141 +137,125 @@
 <span class="line-number">117</span>
 <span class="line-number">118</span>
 <span class="line-number">119</span>
-<span class="line-number">120</span>
-<span class="line-number">121</span>
-<span class="line-number">122</span>
-<span class="line-number">123</span>
-<span class="line-number">124</span>
-<span class="line-number">125</span>
-<span class="line-number">126</span>
-<span class="line-number">127</span>
 </pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># clustering.py contains classes and functions that cluster data points</span>
-</span><span class="line"><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">random</span>
-</span><span class="line"><span class="c"># -- The Point class represents points in n-dimensional space</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">math</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">random</span>
+</span><span class="line">
+</span><span class="line">
 </span><span class="line"><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
-</span><span class="line">    <span class="c"># Instance variables</span>
-</span><span class="line">    <span class="c"># self.coords is a list of coordinates for this Point</span>
-</span><span class="line">    <span class="c"># self.n is the number of dimensions this Point lives in (ie, its space)</span>
-</span><span class="line">    <span class="c"># self.reference is an object bound to this Point</span>
-</span><span class="line">    <span class="c"># Initialize new Points</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot;The Point class represents points in n-dimensional space&quot;&quot;&quot;</span>
+</span><span class="line">
 </span><span class="line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class="line">        <span class="sd">&quot;&quot;&quot;Initialize new Points</span>
+</span><span class="line"><span class="sd">        :param coords: list of coordinates for this Point</span>
+</span><span class="line"><span class="sd">        :param reference: object bound to this Point</span>
+</span><span class="line"><span class="sd">        &quot;&quot;&quot;</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="n">reference</span>
-</span><span class="line">        <span class="c"># Return a string representation of this Point</span>
+</span><span class="line">
 </span><span class="line">        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="line">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># -- The Cluster class represents clusters of points in n-dimensional space</span>
+</span><span class="line">            <span class="sd">&quot;&quot;&quot;Return a string representation of this Point&quot;&quot;&quot;</span>
+</span><span class="line">            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+</span><span class="line">
 </span><span class="line">
 </span><span class="line"><span class="k">class</span> <span class="nc">Cluster</span><span class="p">:</span>
-</span><span class="line">    <span class="c"># Instance variables</span>
-</span><span class="line">    <span class="c"># self.points is a list of Points associated with this Cluster</span>
-</span><span class="line">    <span class="c"># self.n is the number of dimensions this Cluster&#39;s Points live in</span>
-</span><span class="line">    <span class="c"># self.centroid is the sample mean Point of this Cluster</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot; The Cluster class represents clusters of points in n-dimensional space</span>
+</span><span class="line"><span class="sd">    self.points is a list of Points associated with this Cluster</span>
+</span><span class="line"><span class="sd">    self.n is the number of dimensions this Cluster&#39;s Points live in</span>
+</span><span class="line"><span class="sd">    self.centroid is the sample mean Point of this Cluster</span>
+</span><span class="line"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class="line">
 </span><span class="line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
-</span><span class="line">        <span class="c"># We forbid empty Clusters (they don&#39;t make mathematical sense!)</span>
-</span><span class="line">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;ILLEGAL: EMPTY CLUSTER&quot;</span><span class="p">)</span>
+</span><span class="line">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class="line">            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Empty cluster is not allowed&quot;</span><span class="p">)</span>
+</span><span class="line">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+</span><span class="line">            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">n</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+</span><span class="line">                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Not all points have equal dimension&quot;</span><span class="p">)</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">n</span>
-</span><span class="line">        <span class="c"># We also forbid Clusters containing Points in different spaces</span>
-</span><span class="line">        <span class="c"># Ie, no Clusters with 2D Points and 3D Points</span>
-</span><span class="line">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-</span><span class="line">        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">n</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;ILLEGAL: MULTISPACE CLUSTER&quot;</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># Figure out what the centroid of this Cluster should be</span>
-</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculateCentroid</span><span class="p">()</span>
-</span><span class="line">        <span class="c"># Return a string representation of this Cluster</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_centroid</span><span class="p">()</span>
 </span><span class="line">
 </span><span class="line">    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="line">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
 </span><span class="line">
-</span><span class="line">    <span class="c"># Update function for the K-means algorithm</span>
-</span><span class="line">    <span class="c"># Assigns a new list of Points to this Cluster, returns centroid difference</span>
 </span><span class="line">    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+</span><span class="line">        <span class="sd">&quot;&quot;&quot;Assign a new list of Points to this Cluster, returns centroid difference&quot;&quot;&quot;</span>
 </span><span class="line">        <span class="n">old_centroid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span>
 </span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span>
-</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculateCentroid</span><span class="p">()</span>
-</span><span class="line">        <span class="k">return</span> <span class="n">getDistance</span><span class="p">(</span><span class="n">old_centroid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># Calculates the centroid Point - the centroid is the sample mean Point</span>
-</span><span class="line">        <span class="c"># (in plain English, the average of all the Points in the Cluster)</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_centroid</span><span class="p">()</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">old_centroid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
 </span><span class="line">
-</span><span class="line">    <span class="k">def</span> <span class="nf">calculateCentroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="line">        <span class="n">centroid_coords</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="line">        <span class="c"># For each coordinate:</span>
-</span><span class="line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
-</span><span class="line">        <span class="c"># Take the average across all Points</span>
-</span><span class="line">        <span class="n">centroid_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-</span><span class="line">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">:</span>
-</span><span class="line">        <span class="n">centroid_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">centroid_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">p</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span class="line">        <span class="n">centroid_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">centroid_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># Return a Point object using the average coordinates</span>
-</span><span class="line">        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">centroid_coords</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># -- Return Clusters of Points formed by K-means clustering</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">calculate_centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="line">        <span class="sd">&quot;&quot;&quot;Calculate the centroid Point&quot;&quot;&quot;</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">Point</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)])</span>
 </span><span class="line">
 </span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">kmeans</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
-</span><span class="line">    <span class="c"># Randomly sample k Points from the points list, build Clusters around them</span>
+</span><span class="line"><span class="k">def</span> <span class="nf">kmeans</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot;Return Clusters of Points formed by K-means clustering</span>
+</span><span class="line"><span class="sd">    :param points: list of points</span>
+</span><span class="line"><span class="sd">    :param k: number of clusters</span>
+</span><span class="line"><span class="sd">    :param cutoff: threshold maximum shift under which iteration is stopped</span>
+</span><span class="line"><span class="sd">    :param max_iter: maximum number of iterations</span>
+</span><span class="line"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="c"># initialize with randomly sampled points</span>
 </span><span class="line">    <span class="n">initial</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-</span><span class="line">    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">initial</span><span class="p">:</span> <span class="n">clusters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Cluster</span><span class="p">([</span><span class="n">p</span><span class="p">]))</span>
-</span><span class="line">    <span class="c"># Enter the program loop</span>
-</span><span class="line">    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class="line">        <span class="c"># Make a list for each Cluster</span>
-</span><span class="line">        <span class="n">lists</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="line">        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span> <span class="n">lists</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-</span><span class="line">        <span class="c"># For each Point:</span>
+</span><span class="line">    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Cluster</span><span class="p">([</span><span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">initial</span><span class="p">]</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+</span><span class="line">        <span class="n">lists</span> <span class="o">=</span> <span class="p">[]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span>
+</span><span class="line">
 </span><span class="line">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-</span><span class="line">            <span class="c"># Figure out which Cluster&#39;s centroid is the nearest</span>
-</span><span class="line">            <span class="n">smallest_distance</span> <span class="o">=</span> <span class="n">getDistance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+</span><span class="line">            <span class="n">smallest_distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
 </span><span class="line">            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class="line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
-</span><span class="line">                <span class="n">distance</span> <span class="o">=</span> <span class="n">getDistance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+</span><span class="line">            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">this_cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+</span><span class="line">                <span class="n">distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
 </span><span class="line">                <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">smallest_distance</span><span class="p">:</span>
 </span><span class="line">                    <span class="n">smallest_distance</span> <span class="o">=</span> <span class="n">distance</span>
-</span><span class="line">                    <span class="n">index</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
-</span><span class="line">            <span class="c"># Add this Point to that Cluster&#39;s corresponding list</span>
+</span><span class="line">                    <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
 </span><span class="line">            <span class="n">lists</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-</span><span class="line">        <span class="c"># Update each Cluster with the corresponding list</span>
-</span><span class="line">        <span class="c"># Record the biggest centroid shift for any Cluster</span>
+</span><span class="line">
 </span><span class="line">        <span class="n">biggest_shift</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class="line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)):</span>
-</span><span class="line">            <span class="n">shift</span> <span class="o">=</span> <span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class="line">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">this_cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clusters</span><span class="p">):</span>
+</span><span class="line">            <span class="n">shift</span> <span class="o">=</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </span><span class="line">            <span class="n">biggest_shift</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">biggest_shift</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
-</span><span class="line">            <span class="c"># If the biggest centroid shift is less than the cutoff, stop</span>
-</span><span class="line">            <span class="k">if</span> <span class="n">biggest_shift</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span> <span class="k">break</span>
-</span><span class="line">    <span class="c"># Return the list of Clusters</span>
+</span><span class="line">        <span class="k">if</span> <span class="n">biggest_shift</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span>
+</span><span class="line">            <span class="k">break</span>
 </span><span class="line">    <span class="k">return</span> <span class="n">clusters</span>
-</span><span class="line">    <span class="c"># -- Get the Euclidean distance between two Points</span>
 </span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">getDistance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-</span><span class="line">    <span class="c"># Forbid measurements between Points in different spaces</span>
-</span><span class="line">    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">n</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;ILLEGAL: NON-COMPARABLE POINTS&quot;</span><span class="p">)</span>
-</span><span class="line">    <span class="c"># Euclidean distance between a and b is sqrt(sum((a[i]-b[i])^2) for all i)</span>
-</span><span class="line">    <span class="n">ret</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
-</span><span class="line">        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">+</span><span class="nb">pow</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">b</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class="line">    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
-</span><span class="line">    <span class="c"># -- Create a random Point in n-dimensional space</span>
 </span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">makeRandomPoint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">):</span>
-</span><span class="line">    <span class="n">coords</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="n">coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">))</span>
-</span><span class="line">    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+</span><span class="line"><span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot;Get the Euclidean distance between two Points&quot;&quot;&quot;</span>
+</span><span class="line">    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">n</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+</span><span class="line">        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;ILLEGAL: NON-COMPARABLE POINTS&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">pow</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">n</span><span class="p">)))</span>
 </span><span class="line">
-</span><span class="line">    <span class="c"># -- Main function</span>
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">make_random_point</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">):</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot;Create a random Point in n-dimensional space&quot;&quot;&quot;</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">Point</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+</span><span class="line">
+</span><span class="line">
 </span><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 </span><span class="line">    <span class="n">num_points</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span>
+</span><span class="line">
 </span><span class="line">    <span class="c"># Create num_points random Points in n-dimensional space</span>
-</span><span class="line">    <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_points</span><span class="p">):</span> <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">makeRandomPoint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">))</span>
+</span><span class="line">    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_random_point</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_points</span><span class="p">)]</span>
+</span><span class="line">
 </span><span class="line">    <span class="c"># Cluster the points using the K-means algorithm</span>
 </span><span class="line">    <span class="n">clusters</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">)</span>
-</span><span class="line">    <span class="c"># Print the results</span>
+</span><span class="line">
 </span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">POINTS:&quot;</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;P:&quot;</span><span class="p">,</span> <span class="n">p</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+</span><span class="line">        <span class="k">print</span> <span class="s">&quot;P:&quot;</span><span class="p">,</span> <span class="n">p</span>
 </span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">CLUSTERS:&quot;</span>
-</span><span class="line">    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;C:&quot;</span><span class="p">,</span> <span class="n">c</span>
-</span><span class="line">    <span class="c"># -- The following code executes upon command-line invocation</span>
-</span><span class="line">    <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span> <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+</span><span class="line">        <span class="k">print</span> <span class="s">&quot;C:&quot;</span><span class="p">,</span> <span class="n">c</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="line">        <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
