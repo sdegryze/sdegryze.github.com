@@ -152,7 +152,7 @@ MathJax.Hub.Config({
   
 
 
-<time datetime="2013-05-03T14:22:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+<time datetime="2013-05-03T14:22:00-07:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
         
       </p>
     
@@ -276,8 +276,6 @@ MathJax.Hub.Config({
 <span class="line-number">115</span>
 <span class="line-number">116</span>
 <span class="line-number">117</span>
-<span class="line-number">118</span>
-<span class="line-number">119</span>
 </pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># clustering.py contains classes and functions that cluster data points</span>
 </span><span class="line"><span class="kn">import</span> <span class="nn">sys</span>
 </span><span class="line"><span class="kn">import</span> <span class="nn">math</span>
@@ -334,7 +332,8 @@ MathJax.Hub.Config({
 </span><span class="line">
 </span><span class="line">
 </span><span class="line"><span class="k">def</span> <span class="nf">kmeans</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
-</span><span class="line">    <span class="sd">&quot;&quot;&quot;Return Clusters of Points formed by K-means clustering</span>
+</span><span class="line">    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class="line"><span class="sd">    Return Clusters of Points formed by K-means clustering</span>
 </span><span class="line"><span class="sd">    :param points: list of points</span>
 </span><span class="line"><span class="sd">    :param k: number of clusters</span>
 </span><span class="line"><span class="sd">    :param cutoff: threshold maximum shift under which iteration is stopped</span>
@@ -346,21 +345,18 @@ MathJax.Hub.Config({
 </span><span class="line">    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Cluster</span><span class="p">([</span><span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">initial</span><span class="p">]</span>
 </span><span class="line">
 </span><span class="line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
-</span><span class="line">        <span class="n">lists</span> <span class="o">=</span> <span class="p">[]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">        <span class="c"># list of lists containing the points closest to each cluster centroid</span>
+</span><span class="line">        <span class="n">cluster_point_list</span> <span class="o">=</span> <span class="p">[]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span>
 </span><span class="line">
 </span><span class="line">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-</span><span class="line">            <span class="n">smallest_distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
-</span><span class="line">            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class="line">            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">this_cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-</span><span class="line">                <span class="n">distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
-</span><span class="line">                <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">smallest_distance</span><span class="p">:</span>
-</span><span class="line">                    <span class="n">smallest_distance</span> <span class="o">=</span> <span class="n">distance</span>
-</span><span class="line">                    <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
-</span><span class="line">            <span class="n">lists</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span><span class="line">            <span class="n">distance_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span> <span class="k">for</span> <span class="n">this_cluster</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">]</span>
+</span><span class="line">            <span class="n">smallest_distance_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">distance_list</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class="line">            <span class="n">cluster_point_list</span><span class="p">[</span><span class="n">smallest_distance_index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </span><span class="line">
 </span><span class="line">        <span class="n">biggest_shift</span> <span class="o">=</span> <span class="mf">0.0</span>
 </span><span class="line">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">this_cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clusters</span><span class="p">):</span>
-</span><span class="line">            <span class="n">shift</span> <span class="o">=</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class="line">            <span class="n">shift</span> <span class="o">=</span> <span class="n">this_cluster</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cluster_point_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </span><span class="line">            <span class="n">biggest_shift</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">biggest_shift</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
 </span><span class="line">        <span class="k">if</span> <span class="n">biggest_shift</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span>
 </span><span class="line">            <span class="k">break</span>
@@ -420,7 +416,7 @@ MathJax.Hub.Config({
   
 
 
-<time datetime="2013-05-03T14:22:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+<time datetime="2013-05-03T14:22:00-07:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
       
 
 
