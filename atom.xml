@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-14T20:14:26-07:00</updated>
+  <updated>2013-05-14T21:48:54-07:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[gradient descent]]]></title>
+    <link href="http://sdegryze.github.io/blog/2013/05/14/gradient-descent/"/>
+    <updated>2013-05-14T21:42:00-07:00</updated>
+    <id>http://sdegryze.github.io/blog/2013/05/14/gradient-descent</id>
+    <content type="html"><![CDATA[<p>Multiple linear regression</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</span><span class="line"><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c"># to representing intercept term</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># add row with ones to represent intercept terms</span>
+</span><span class="line"><span class="n">x_enh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)))</span>
+</span><span class="line"><span class="n">x_enh</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+</span><span class="line">
+</span><span class="line"><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span>
+</span><span class="line"><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+</span><span class="line"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+</span><span class="line"><span class="n">threshold_diff_SSE</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span class="line"><span class="n">last_SSE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class="line"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+</span><span class="line">    <span class="n">resid</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x_enh</span> <span class="o">-</span> <span class="n">y</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">SSE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span><span class="n">resid</span><span class="p">))</span>
+</span><span class="line">    <span class="k">if</span> <span class="n">last_SSE</span><span class="o">-</span><span class="n">SSE</span> <span class="o">&lt;</span> <span class="n">threshold_diff_SSE</span> <span class="ow">and</span> <span class="n">last_SSE</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class="line">        <span class="k">break</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">last_SSE</span> <span class="o">=</span> <span class="n">SSE</span>
+</span><span class="line">
+</span><span class="line">    <span class="c"># np.tile creates a new matrix by copying rows or columns</span>
+</span><span class="line">    <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">x_enh</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">print</span> <span class="n">theta</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[sorting]]></title>
@@ -102,6 +163,33 @@ that are near-sorted. The solution is
 </span><span class="line">    <span class="n">right</span> <span class="o">=</span> <span class="n">mergesort</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="n">middle</span><span class="p">:])</span>
 </span><span class="line">    <span class="k">return</span> <span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>RSelect</strong>
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="python"><span class="line"><span class="k">def</span> <span class="nf">rselect</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span><span class="line">    <span class="n">pivot</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class="line">    <span class="n">below</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">]</span>
+</span><span class="line">    <span class="n">above</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">]</span>
+</span><span class="line">    <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">below</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">above</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">len_below</span><span class="p">:</span>
+</span><span class="line">    	<span class="k">return</span> <span class="n">rselect</span><span class="p">(</span><span class="n">below</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span class="line">    <span class="k">elif</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">j</span><span class="p">:</span>
+</span><span class="line">    	<span class="k">return</span> <span class="n">rselect</span><span class="p">(</span><span class="n">above</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="p">)</span>
+</span><span class="line">    <span class="k">else</span><span class="p">:</span>
+</span><span class="line">    	<span class="k">return</span> <span class="n">pivot</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 ]]></content>
   </entry>
   
