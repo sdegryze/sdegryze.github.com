@@ -4,7 +4,7 @@
   <title><![CDATA[My Learning Learning Blog]]></title>
   <link href="http://sdegryze.github.io/atom.xml" rel="self"/>
   <link href="http://sdegryze.github.io/"/>
-  <updated>2013-05-14T21:52:38-07:00</updated>
+  <updated>2013-05-15T18:16:02-07:00</updated>
   <id>http://sdegryze.github.io/</id>
   <author>
     <name><![CDATA[Steven De Gryze]]></name>
@@ -12,6 +12,155 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[combinatorics]]></title>
+    <link href="http://sdegryze.github.io/blog/2013/05/15/combinatorics/"/>
+    <updated>2013-05-15T18:04:00-07:00</updated>
+    <id>http://sdegryze.github.io/blog/2013/05/15/combinatorics</id>
+    <content type="html"><![CDATA[<table>
+  <tbody>
+    <tr>
+      <td>Permutations with Repetition</td>
+      <td><script type="math/tex">n^r</script></td>
+    </tr>
+    <tr>
+      <td>Permutations without Repetition</td>
+      <td><script type="math/tex">\frac{n!}{(n-3)!}</script></td>
+    </tr>
+    <tr>
+      <td>Combinations with Repetition</td>
+      <td><script type="math/tex">\binom{n}{r}=\frac{n!}{r!(n-r)!}</script></td>
+    </tr>
+    <tr>
+      <td>Combinations without Repetition</td>
+      <td><script type="math/tex">\binom{n+r-1}{r}</script></td>
+    </tr>
+  </tbody>
+</table>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[data structures in python]]></title>
+    <link href="http://sdegryze.github.io/blog/2013/05/14/data-structures-in-python/"/>
+    <updated>2013-05-14T21:58:00-07:00</updated>
+    <id>http://sdegryze.github.io/blog/2013/05/14/data-structures-in-python</id>
+    <content type="html"><![CDATA[<p><strong>heaps</strong></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">import</span> <span class="nn">heapq</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># Push the value item onto the heap, maintaining the heap invariant.</span>
+</span><span class="line"><span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># Pop and return the smallest item from the heap, maintaining the heap invariant.</span>
+</span><span class="line"><span class="c"># If the heap is empty, IndexError is raised.</span>
+</span><span class="line"><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="err">¶</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Heap elements can be tuples. This is useful for assigning comparison values (such as task priorities) alongside the main record being tracked:
+Pop will pop the smallest number.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">h</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class="line"><span class="n">heappush</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s">&#39;write code&#39;</span><span class="p">))</span>
+</span><span class="line"><span class="n">heappush</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s">&#39;release product&#39;</span><span class="p">))</span>
+</span><span class="line"><span class="n">heappush</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;write spec&#39;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>python</p>
+
+<p>A <strong>deque</strong> is a list-like container with fast appends and pops on either end. Deques are a generalization of stacks and queues.
+They support appends and pops from either side of the deque with approximately the same <script type="math/tex">\mathcal{O}(1)</script> performance in either direction</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</span><span class="line"><span class="n">deque</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c"># Add x to the right side of the deque.</span>
+</span><span class="line"><span class="n">deque</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c"># Add x to the left side of the deque.</span>
+</span><span class="line"><span class="n">deque</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c"># Remove and return an element from the right side of the deque. If no elements are present, raises an IndexError.</span>
+</span><span class="line"><span class="n">deque</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>  <span class="c"># Remove and return an element from the left side of the deque. If no elements are present, raises an IndexError.</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># using a deque as a stack (1) </span>
+</span><span class="line"><span class="n">a</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># gives exactly the same result as</span>
+</span><span class="line"><span class="n">a</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># using a deque as a queue</span>
+</span><span class="line"><span class="n">a</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># gives exactly the same result as</span>
+</span><span class="line"><span class="n">a</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line"><span class="n">a</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class="line"><span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>Hash table</strong> is implemented by dict</p>
+
+<p><strong>OrderedDict</strong>
+<code>class collections.OrderedDict([items])</code> Return an instance of a dict subclass, supporting the usual dict methods. An OrderedDict is a dict that remembers the order that keys were first inserted.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[gradient descent]]></title>
@@ -45,20 +194,35 @@
 <span class="line-number">23</span>
 <span class="line-number">24</span>
 <span class="line-number">25</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-</span><span class="line"><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c"># to representing intercept term</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 </span><span class="line">
-</span><span class="line"><span class="c"># add row with ones to represent intercept terms</span>
-</span><span class="line"><span class="n">x_enh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)))</span>
-</span><span class="line"><span class="n">x_enh</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+</span><span class="line"><span class="c"># x is a matrix with observations in columns</span>
+</span><span class="line"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</span><span class="line"><span class="n">x</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c"># notice the unpacking of the shape argument here</span>
+</span><span class="line"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span><span class="n">x</span><span class="p">))</span>  <span class="c"># add row with ones to represent intercept terms</span>
+</span><span class="line">
+</span><span class="line"><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</span><span class="line">
+</span><span class="line"><span class="n">true_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="mf">0.45</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</span><span class="line">
+</span><span class="line"><span class="n">y</span> <span class="o">=</span> <span class="n">true_theta</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x</span>
+</span><span class="line">
 </span><span class="line">
 </span><span class="line"><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span>
 </span><span class="line"><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
-</span><span class="line"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
-</span><span class="line"><span class="n">threshold_diff_SSE</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span class="line"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+</span><span class="line"><span class="n">threshold_diff_SSE</span> <span class="o">=</span> <span class="mf">0.01</span>
 </span><span class="line"><span class="n">last_SSE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </span><span class="line"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
-</span><span class="line">    <span class="n">resid</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x_enh</span> <span class="o">-</span> <span class="n">y</span>
+</span><span class="line">    <span class="n">resid</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
 </span><span class="line">
 </span><span class="line">    <span class="n">SSE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span><span class="n">resid</span><span class="p">))</span>
 </span><span class="line">    <span class="k">if</span> <span class="n">last_SSE</span><span class="o">-</span><span class="n">SSE</span> <span class="o">&lt;</span> <span class="n">threshold_diff_SSE</span> <span class="ow">and</span> <span class="n">last_SSE</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -67,8 +231,9 @@
 </span><span class="line">    <span class="n">last_SSE</span> <span class="o">=</span> <span class="n">SSE</span>
 </span><span class="line">
 </span><span class="line">    <span class="c"># np.tile creates a new matrix by copying rows or columns</span>
-</span><span class="line">    <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">x_enh</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="line">    <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
 </span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="n">SSE</span>
 </span><span class="line"><span class="k">print</span> <span class="n">theta</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
@@ -99,7 +264,7 @@
 </span><span class="line">        <span class="k">return</span> <span class="n">lesser</span> <span class="o">+</span> <span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">+</span> <span class="n">greater</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>This implementation works in O(n log n) for randomly sorted lists, but will be very inefficient (O(n^2)) for lists
+<p>This implementation works in <script type="math/tex">\mathcal{O}(n\log(n))</script> for randomly sorted lists, but will be very inefficient (<script type="math/tex">\mathcal{O}(n^2)</script>) for lists
 that are near-sorted. The solution is
 <strong>Quicksort with randomization of pivot</strong> Note the use of a wrapper function to copy the list first so that pop does not alter the original list</p>
 
@@ -181,12 +346,20 @@ that are near-sorted. The solution is
 <span class="line-number">10</span>
 <span class="line-number">11</span>
 <span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
 </pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">rselect</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 </span><span class="line">    <span class="n">pivot</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span class="line">    <span class="n">below</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">]</span>
 </span><span class="line">    <span class="n">above</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">]</span>
-</span><span class="line">    <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">below</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">above</span><span class="p">)</span>
 </span><span class="line">
+</span><span class="line">    <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">below</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">above</span><span class="p">)</span>
+</span><span class="line">    <span class="c"># j may be greater than len_below+1 if the pivot occurs multiple times</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="n">pivot</span><span class="p">,</span> <span class="n">below</span><span class="p">,</span> <span class="n">above</span><span class="p">,</span> <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">n</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;---&quot;</span>
 </span><span class="line">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">len_below</span><span class="p">:</span>
 </span><span class="line">    	<span class="k">return</span> <span class="n">rselect</span><span class="p">(</span><span class="n">below</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 </span><span class="line">    <span class="k">elif</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">j</span><span class="p">:</span>

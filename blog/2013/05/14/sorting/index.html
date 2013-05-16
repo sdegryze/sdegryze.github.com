@@ -135,7 +135,7 @@ MathJax.Hub.Config({
 </span><span class="line">        <span class="k">return</span> <span class="n">lesser</span> <span class="o">+</span> <span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">+</span> <span class="n">greater</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>This implementation works in O(n log n) for randomly sorted lists, but will be very inefficient (O(n^2)) for lists
+<p>This implementation works in <script type="math/tex">\mathcal{O}(n\log(n))</script> for randomly sorted lists, but will be very inefficient (<script type="math/tex">\mathcal{O}(n^2)</script>) for lists
 that are near-sorted. The solution is
 <strong>Quicksort with randomization of pivot</strong> Note the use of a wrapper function to copy the list first so that pop does not alter the original list</p>
 
@@ -217,12 +217,20 @@ that are near-sorted. The solution is
 <span class="line-number">10</span>
 <span class="line-number">11</span>
 <span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
 </pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">rselect</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 </span><span class="line">    <span class="n">pivot</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span class="line">    <span class="n">below</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">]</span>
 </span><span class="line">    <span class="n">above</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">]</span>
-</span><span class="line">    <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">below</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">above</span><span class="p">)</span>
 </span><span class="line">
+</span><span class="line">    <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">below</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">above</span><span class="p">)</span>
+</span><span class="line">    <span class="c"># j may be greater than len_below+1 if the pivot occurs multiple times</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="n">pivot</span><span class="p">,</span> <span class="n">below</span><span class="p">,</span> <span class="n">above</span><span class="p">,</span> <span class="n">len_below</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">n</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;---&quot;</span>
 </span><span class="line">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">len_below</span><span class="p">:</span>
 </span><span class="line">    	<span class="k">return</span> <span class="n">rselect</span><span class="p">(</span><span class="n">below</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 </span><span class="line">    <span class="k">elif</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">j</span><span class="p">:</span>
@@ -287,6 +295,14 @@ that are near-sorted. The solution is
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/15/combinatorics/">combinatorics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/14/data-structures-in-python/">data structures in python</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/14/gradient-descent/">gradient descent</a>
       </li>
     
@@ -296,10 +312,6 @@ that are near-sorted. The solution is
     
       <li class="post">
         <a href="/blog/2013/05/03/implementation-of-k-means-in-python/">Implementation of K-means in python</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/03/my-learning-learning-wishlist/">My learning learning wishlist</a>
       </li>
     
   </ul>
